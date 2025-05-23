@@ -2,33 +2,20 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
-    public float moveSpeed;//속도를 줄이기 위해 만든 변수 
-    void Start()
-    {
-
-    }
-
-
+    public float moveSpeed;//속도 변수
+ 
     void Update()
     {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");// 부드럽게 증감하는 값 
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            this.transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            this.transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            this.transform.position += Vector3.back * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            this.transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
+        Vector3 dir = new Vector3(h, 0, v);
+        Vector3 normalDir = dir.normalized;
+
+        transform.position += normalDir * moveSpeed * Time.deltaTime; // 여기까지는 이동하는 기능 
+
+        transform.LookAt(transform.position + normalDir); //이동하는 방향으로 회전하는 기능
+
     }
 }
 

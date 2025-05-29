@@ -4,6 +4,8 @@ public class PinballManager : MonoBehaviour
 {
     public Rigidbody2D leftbarRb;
     public Rigidbody2D rightbarRb;
+
+    public int totalScore = 0;
     
     void Update()
     {

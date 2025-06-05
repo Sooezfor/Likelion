@@ -5,7 +5,8 @@ public class DoorEvent2 : MonoBehaviour
     Animator anim;
 
     public string openKey;//유니티에서 직접 넣을 예정
-    public string closeKey; 
+    public string closeKey;
+    public GameObject doorLock;
 
     private void Start()
     {
@@ -15,16 +16,16 @@ public class DoorEvent2 : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            anim.SetTrigger(openKey);
+            doorLock.SetActive(true);
+           //anim.SetTrigger(openKey); 
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            anim.SetTrigger(closeKey);
+            doorLock.SetActive(false);
+         // anim.SetTrigger(closeKey);
         }
     }
-
-
 }

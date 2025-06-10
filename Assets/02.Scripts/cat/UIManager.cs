@@ -6,13 +6,24 @@ namespace Cat
 {
     public class UIManager : MonoBehaviour
     {
+        public SoundManager soundManager;
+
         public GameObject playobj;
         public GameObject introUI;
+        public GameObject playUI;
 
         public TMP_InputField inputField;
         public TextMeshProUGUI nameTextUI;
 
         public Button startButton;
+
+
+        private void Awake() //씬 세팅(원래 게임메니저에서 해야함)
+        {
+            playobj.SetActive(false);
+            introUI.SetActive(true);
+            playUI.SetActive(false);
+        }
 
         private void Start()
         {
@@ -24,15 +35,19 @@ namespace Cat
             bool isNoText = inputField.text == "";
 
             if(isNoText)
-                {
+            {
                 Debug.Log("입력 없음");
-                }
+             }
             else
-                {
-                    playobj.SetActive(true);
-                    introUI.SetActive(false);
-                    nameTextUI.text = inputField.text;
-                }                        
+            { //start 버튼 눌렀을때 실행되는 애들이 다 여기모여있는것. 
+                soundManager.SetBGMSound("Play");
+                GameManager.isPlay = true;
+
+                playobj.SetActive(true);
+                playUI.SetActive(true);
+                introUI.SetActive(false);
+                nameTextUI.text = inputField.text;
+            }                        
          }
     }
 }

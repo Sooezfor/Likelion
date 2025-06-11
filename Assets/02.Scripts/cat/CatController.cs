@@ -2,9 +2,11 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine;
 using Cat;
+using System.Collections;
 
 public class CatController : MonoBehaviour
 {
+    public VideoManager videoManager;
     public GameObject gameOverUI;
     public GameObject fadeUI; 
     public SoundManager soundManager;
@@ -14,9 +16,6 @@ public class CatController : MonoBehaviour
     public float limitPower = 9f;
     int jumpCount;
 
-    public GameObject happyVideo;
-    public GameObject sadVideo;
-
     void Start()
     {
         catRb = GetComponent<Rigidbody2D>();
@@ -24,7 +23,6 @@ public class CatController : MonoBehaviour
     }
     void Update()
     {
-        //스페이스바 누르면 점프
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 5) //점프 다섯 번 가능
         {
             catAnim.SetTrigger("Jump"); //애니메이터 파라미터에 접근하기
@@ -38,11 +36,9 @@ public class CatController : MonoBehaviour
                   catRb.linearVelocityY = limitPower; 
                 }
         }
-
         var catRotation = transform.eulerAngles;
         catRotation.z = catRb.linearVelocityY * 2.5f;
         transform.eulerAngles = catRotation;
-
     }     
     private void OnCollisionEnter2D(Collision2D other) //바닥에 닿았을 때 
     {
@@ -56,7 +52,7 @@ public class CatController : MonoBehaviour
 
             this.GetComponent<CircleCollider2D>().enabled = false;
 
-            Invoke("SadVideo", 5f);
+            StartCoroutine(EndingRoutine(false));
         }
         if (other.gameObject.CompareTag("Ground"))
         {
@@ -78,25 +74,18 @@ public class CatController : MonoBehaviour
                 fadeUI.GetComponent<fadePanel>().OnFade(3f, Color.white);
                 this.GetComponent<CircleCollider2D>().enabled = false;
 
-                Invoke("HappyVideo", 5f);
-
+                StartCoroutine(EndingRoutine(true));
             }
         }
-       
-    }
-    void HappyVideo()
-    {
-        happyVideo.SetActive(true);
-        fadeUI.SetActive(false);
-        gameOverUI.SetActive(false);
-        soundManager.audioSource.mute = true;
-    }
-    void SadVideo()
-    {
-        sadVideo.SetActive(true);
-        fadeUI.SetActive(false);
-        gameOverUI.SetActive(false);
-        soundManager.audioSource.mute = true;
     }
 
+    IEnumerator EndingRoutine(bool isHappy)
+    {
+        yield return new WaitForSeconds(3.5f);
+        videoManager.VideoPlay(isHappy);
+
+        fadeUI.SetActive(false);
+        gameOverUI.SetActive(false);
+        soundManager.audioSource.mute = true;
+    }
 }

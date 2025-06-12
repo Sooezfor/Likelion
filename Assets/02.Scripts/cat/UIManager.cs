@@ -11,15 +11,18 @@ namespace Cat
         public GameObject playobj;
         public GameObject introUI;
         public GameObject playUI;
+        public GameObject videoPanel; 
 
         public TMP_InputField inputField;
         public TextMeshProUGUI nameTextUI;
 
         public Button startButton;
+        public Button restartButton; 
 
 
         private void Awake() //씬 세팅(원래 게임메니저에서 해야함)
         {
+
             playobj.SetActive(false);
             introUI.SetActive(true);
             playUI.SetActive(false);
@@ -28,6 +31,7 @@ namespace Cat
         private void Start()
         {
             startButton.onClick.AddListener(OnStartButton); //스타트 버튼에 접근해서 온 클릭 이벤트 등록해서 애드리스너(호출 당하는애) 등록
+            restartButton.onClick.AddListener(OnRestartButton);
         }
 
         public void OnStartButton()
@@ -49,5 +53,12 @@ namespace Cat
                 nameTextUI.text = inputField.text;
             }                        
          }
+
+        void OnRestartButton()
+        {
+            GameManager.ResetPlayUI();
+            playobj.SetActive(true);
+            videoPanel.SetActive(false);
+        }
     }
 }

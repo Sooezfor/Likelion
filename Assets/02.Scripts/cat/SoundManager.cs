@@ -26,7 +26,6 @@ namespace Cat
             audioSource.volume = 0.1f;
 
             audioSource.Play(); 
-
         }
         public void OnJumpSound()
         {

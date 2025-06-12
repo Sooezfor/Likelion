@@ -10,13 +10,19 @@ public class itemEvent : MonoBehaviour
     public float randomPosY;
 
     public enum ColliderType { Pipe, Melon, Both }
-    public ColliderType colliderType; 
+    public ColliderType colliderType;
+    Vector3 initPos; //파이프 위치 담는 변수
 
-    private void Start()
+    private void Awake()
     {
-        SetRandomSetting(transform.position.x);
+        initPos = transform.localPosition;
     }
-     void Update()
+
+    private void OnEnable()
+    {
+        SetRandomSetting(initPos.x);
+    }
+    void Update()
      {
           transform.position += Vector3.left * moveSpeed * Time.fixedDeltaTime;
 
@@ -25,7 +31,7 @@ public class itemEvent : MonoBehaviour
             SetRandomSetting(returnPosX);       
           }
      }
-     void SetRandomSetting(float posX)
+     void SetRandomSetting(float posX) // 파이프,사과,둘 다 Type 설정 + 위치 재조정 
      {
         randomPosY = Random.Range(-9f, -5);
         transform.position = new Vector3(posX, randomPosY, 0);

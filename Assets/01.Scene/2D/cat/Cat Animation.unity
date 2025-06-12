@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &90980409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   pipe: {fileID: 1828284184}
   melon: {fileID: 1287449853}
   particle: {fileID: 210188159}
-  moveSpeed: 0.25
+  moveSpeed: 0.35
   returnPosX: 15
   randomPosY: 0
   colliderType: 0
@@ -947,7 +947,7 @@ MonoBehaviour:
   pipe: {fileID: 397025918}
   melon: {fileID: 1020985202}
   particle: {fileID: 818696920}
-  moveSpeed: 0.25
+  moveSpeed: 0.35
   returnPosX: 15
   randomPosY: 0
   colliderType: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fcb775468f3fa4ea782bd070d4b6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetSpeed: 0.1
+  offsetSpeed: 0.35
 --- !u!1 &347101625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,7 +1312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &400825717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2079,7 +2079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 104.6001, y: -91.900024}
+  m_AnchoredPosition: {x: 104.6001, y: -91.8999}
   m_SizeDelta: {x: 121.2995, y: 82.6941}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &633917585
@@ -2453,12 +2453,12 @@ GameObject:
   - component: {fileID: 861010610}
   - component: {fileID: 861010612}
   m_Layer: 5
-  m_Name: Outtro
+  m_Name: Outro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &861010610
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3126,7 +3126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1055621076
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3159,7 +3159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1055621078}
-  fadeTime: 3
 --- !u!114 &1055621078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,9 +3533,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoManager: {fileID: 1212748028}
+  soundManager: {fileID: 1113445896}
   gameOverUI: {fileID: 90980408}
   fadeUI: {fileID: 1055621075}
-  soundManager: {fileID: 1113445896}
   PLAY: {fileID: 1785380005}
   jumpPower: 10
   limitPower: 9
@@ -4535,7 +4534,7 @@ MonoBehaviour:
   pipe: {fileID: 1575714539}
   melon: {fileID: 1391911705}
   particle: {fileID: 416630803}
-  moveSpeed: 0.25
+  moveSpeed: 0.35
   returnPosX: 15
   randomPosY: 0
   colliderType: 0
@@ -5641,6 +5640,7 @@ MonoBehaviour:
   nameTextUI: {fileID: 2024536647}
   startButton: {fileID: 1003989809}
   restartButton: {fileID: 1406170370}
+  outButton: {fileID: 2142105915}
 --- !u!1 &2050663618
 GameObject:
   m_ObjectHideFlags: 0

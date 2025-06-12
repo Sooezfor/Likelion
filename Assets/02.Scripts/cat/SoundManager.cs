@@ -35,8 +35,5 @@ namespace Cat
         {
             audioSource.PlayOneShot(colliderClip);
         }
-
     }
-
-
 }

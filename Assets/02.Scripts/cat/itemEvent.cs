@@ -17,7 +17,6 @@ public class itemEvent : MonoBehaviour
     {
         initPos = transform.localPosition;
     }
-
     private void OnEnable()
     {
         SetRandomSetting(initPos.x);

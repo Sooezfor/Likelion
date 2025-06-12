@@ -5,13 +5,11 @@ using UnityEngine.UI;
 public class fadePanel : MonoBehaviour
 {
     public Image fadeImage;
-    public float fadeTime = 3f;
-
 
     public void OnFade(float fadeTime, Color color, bool isFadeStart)
     {
-        Debug.Log("on fade 실행");
         StartCoroutine(FadeRoutine(fadeTime, color, isFadeStart));
+        Debug.Log("on fade 실행");
     }
 
     IEnumerator FadeRoutine(float fadeTime, Color color, bool isFadeStart)
@@ -21,15 +19,16 @@ public class fadePanel : MonoBehaviour
         float timer = 0f;
         float percent = 0f;
    
-        while(percent <1f)
+        while(percent < 1f)
         {
+           float value = isFadeStart ? percent : 1 - percent;
+
             timer += Time.deltaTime;
             percent = timer / fadeTime;
       
-           float value = isFadeStart ? percent : 1 - percent;
             Debug.Log("value");
 
-            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b,value);
+            fadeImage.color = new Color(color.r, color.g, color.b,value);
             yield return null; 
         }  
     }

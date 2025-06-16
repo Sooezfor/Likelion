@@ -21,7 +21,7 @@ public class StudyInheritance : MonoBehaviour
         }
     }
 
-    void AllMove() //
+    public void AllMove() //
     {
         foreach(var persons in persons) //var는 각각의 지역변수. 
             persons.Walk();

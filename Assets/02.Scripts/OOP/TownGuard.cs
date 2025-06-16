@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TownGuard : MonoBehaviour, IMove, IAttack
+public class TownGuard : MonoBehaviour, IMove
 {
    
 }

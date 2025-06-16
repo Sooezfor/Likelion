@@ -1,11 +1,31 @@
+using System;
 using UnityEngine;
-
-public abstract class Character : MonoBehaviour
+public class Character : MonoBehaviour
 {
-    public float hp;
-    public float moveSpeed;
+    public IDropItem currentItem;
 
-    public abstract void Move();
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentItem.Use();
+        }
 
-    public abstract void Hit(); 
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            currentItem.Drop();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<IDropItem>() != null)
+        {
+            IDropItem item = other.GetComponent<IDropItem>();
+
+            item.Grab(); // æ∆¿Ã≈€ »πµÊ
+
+            currentItem = item; // «ˆ¿Á æ∆¿Ã≈€ ¿Â¬¯
+        }
+    }
 }

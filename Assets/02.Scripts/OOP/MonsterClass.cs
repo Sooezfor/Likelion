@@ -1,13 +1,16 @@
+using Unity.Android.Types;
 using UnityEngine;
 
-public class MonsterClass : MonoBehaviour
+public class MonsterClass : Character
 {
-    private void Start()
+    public override void Hit()
     {
 
     }
-    private void Update()
+    public override void Move()
     {
-
+        
     }
+
 }
+

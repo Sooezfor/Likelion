@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class Orc : MonsterClass
+public class Orc : MonsterClass, IMove
 {
-    private void Start()
+    public float hp;
+    public float moveSpeed;
+
+    public void Move()
     {
-        
+        Debug.Log("Move");
     }
-    private void Update()
+    public void Attack()
     {
-        
+        Debug.Log("Attack");
     }
 }

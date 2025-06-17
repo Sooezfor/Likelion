@@ -10,7 +10,6 @@ public class CharacterControl : MonoBehaviour
         Move();
         Interaction();
     }
-
     private void Move()
     {
         float h = Input.GetAxis("Horizontal"); //x축 오른쪽 왼쪽 A,D
@@ -27,16 +26,14 @@ public class CharacterControl : MonoBehaviour
             return;
         
         if (Input.GetMouseButtonDown(0))
-        {
             currentItem.Use();
-        }
+        
         if(Input.GetKeyDown(KeyCode.Space))
         {
             currentItem.Drop();
             currentItem = null;
         }         
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<IDropItem>() != null)

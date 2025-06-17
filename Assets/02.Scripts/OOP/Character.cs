@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
         {
             IDropItem item = other.GetComponent<IDropItem>();
 
-            item.Grab(); // ¾ÆÀÌÅÛ È¹µæ
+            //item.Grab(); // ¾ÆÀÌÅÛ È¹µæ
 
             currentItem = item; // ÇöÀç ¾ÆÀÌÅÛ ÀåÂø
         }

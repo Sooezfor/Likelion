@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
     private IDropItem currentItem;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private Transform grabpos;
 
     private void Update()
     {
         Move();
+        Interaction();
     }
 
     private void Move()
@@ -22,6 +24,9 @@ public class CharacterControl : MonoBehaviour
 
     void Interaction()
     {
+        if (currentItem == null) 
+            return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             currentItem.Use();
@@ -29,6 +34,7 @@ public class CharacterControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             currentItem.Drop();
+            currentItem = null;
         }         
     }
 
@@ -39,7 +45,7 @@ public class CharacterControl : MonoBehaviour
             var item = other.GetComponent<IDropItem>();
             currentItem = item; 
 
-            currentItem.Grab();
+            currentItem.Grab(grabpos); //주운 아이템 그랩할 위치로 전달
         }
     }
 }

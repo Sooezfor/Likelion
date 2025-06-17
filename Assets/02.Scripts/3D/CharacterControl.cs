@@ -5,7 +5,6 @@ public class CharacterControl : MonoBehaviour
     private IDropItem currentItem;
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private Transform grabpos;
-
     private void Update()
     {
         Move();

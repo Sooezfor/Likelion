@@ -6,6 +6,8 @@ public abstract class Monster : MonoBehaviour
     SpriteRenderer sRenderer;
     [SerializeField] protected float Hp = 3f;
     [SerializeField] protected float moveSpeed = 3f;
+    public SpawnManager spManager;
+
     Animator anim;
     bool isMove = true; //공격당했을때 멈추게하기 위해 움직이는거 판단하는 불값
     bool isHit = false; //Hit 함수가 돌고있을 때 그다음 공격은 막도록 하는 것(광클방지)
@@ -16,6 +18,10 @@ public abstract class Monster : MonoBehaviour
 
     private void Start()
     {
+        spManager = FindFirstObjectByType<SpawnManager>(); //갖고있는게 하나뿐인 오브젝트라서 찾을수있음.
+                                                           //스폰매니저라는 타입을 가진 애에게 할당한다는 뜻.
+                                                           //(딱 하나만 갖고있는애 찾을떄 쓰는 함수) 
+
         sRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
@@ -43,12 +49,15 @@ public abstract class Monster : MonoBehaviour
 
             if(Hp <= 0)
             {
-                anim.SetTrigger("Death");
+                    anim.SetTrigger("Death");
+                    yield return new WaitForSeconds(2f);
+                    spManager.DropCoin(transform.position);//여기서 위치는 몬스터가 죽은 위치
 
-                yield return new WaitForSeconds(3f);
-                Destroy(gameObject);
+                    Destroy(gameObject);
 
-                yield break; 
+                    yield break;
+                   
+                
             }
             yield return new WaitForSeconds(0.5f);
             isMove = true;

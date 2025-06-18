@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
-
 public abstract class Monster : MonoBehaviour
 {
     SpriteRenderer sRenderer;
+    public SpawnManager spManager;
+    Animator anim;
+
     [SerializeField] protected float Hp = 3f;
     [SerializeField] protected float moveSpeed = 3f;
-    public SpawnManager spManager;
 
-    Animator anim;
     bool isMove = true; //공격당했을때 멈추게하기 위해 움직이는거 판단하는 불값
     bool isHit = false; //Hit 함수가 돌고있을 때 그다음 공격은 막도록 하는 것(광클방지)
+    int dir = 1;
 
-    private int dir = 1;
 
     public abstract void Init();
 
@@ -41,27 +41,26 @@ public abstract class Monster : MonoBehaviour
         if (isHit)
             yield break; //isHit이 true면 현재 코루틴 실행X 현재루틴 파괴
 
-            isHit = true;
-            isMove = false; 
-            anim.SetTrigger("Hit");
+        isHit = true;
+        isMove = false; 
+        anim.SetTrigger("Hit");
 
-            Hp -= damage;
+         Hp -= damage;
 
-            if(Hp <= 0)
-            {
-                    anim.SetTrigger("Death");
-                    yield return new WaitForSeconds(2f);
-                    spManager.DropCoin(transform.position);//여기서 위치는 몬스터가 죽은 위치
+         if(Hp <= 0)
+         {
+            anim.SetTrigger("Death");
 
-                    Destroy(gameObject);
+            yield return new WaitForSeconds(2f);
+            spManager.DropCoin(transform.position);//여기서 위치는 몬스터가 죽은 위치
+            Destroy(gameObject);
 
-                    yield break;
-                   
-                
-            }
-            yield return new WaitForSeconds(0.5f);
-            isMove = true;
-            isHit = false;
+            yield break;
+  
+         }
+         yield return new WaitForSeconds(0.5f);
+         isHit = false;
+         isMove = true;
     }
     private void Move()
     {

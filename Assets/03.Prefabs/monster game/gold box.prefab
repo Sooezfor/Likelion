@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6996627542534435147}
   - component: {fileID: 597710452563666802}
   - component: {fileID: 5347211864817409080}
+  - component: {fileID: 3901513857045151509}
   m_Layer: 10
   m_Name: gold box
   m_TagString: Untagged
@@ -152,3 +153,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3901513857045151509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651151587207437912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0934b288bf59244d88ae1efde422721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinType: 0

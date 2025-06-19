@@ -36,7 +36,7 @@ public abstract class Monster : MonoBehaviour
     {
         StartCoroutine(Hit(1)); //데미지 1
     }
-    IEnumerator Hit(float damage) //그냥 게임뷰 상에서 마우스로 클릭하면 상호작용됨
+    public IEnumerator Hit(float damage) //그냥 게임뷰 상에서 마우스로 클릭하면 상호작용됨
     {
         if (isHit)
             yield break; //isHit이 true면 현재 코루틴 실행X 현재루틴 파괴

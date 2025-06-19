@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1002876425274531132}
   - component: {fileID: 1817419342971263862}
   - component: {fileID: 3710961954647897234}
+  - component: {fileID: 3915416443926812513}
   m_Layer: 10
   m_Name: jew
   m_TagString: Untagged
@@ -152,3 +153,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3915416443926812513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102422936559381983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0934b288bf59244d88ae1efde422721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinType: 2

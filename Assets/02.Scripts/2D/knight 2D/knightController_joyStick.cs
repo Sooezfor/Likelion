@@ -1,28 +1,36 @@
 using System;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class knightController_joyStick : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D knightRb;
 
+    [SerializeField] Button jumpButton, attackButton;
+
     private Vector3 inputDir;
+  
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpPower = 13f;
 
-    private bool isGround;
+    private bool isGround; //기본값 false 임.
+    bool isCombo;
+    bool isAttack; 
 
     void Start()
     {
         animator = GetComponent<Animator>();
         knightRb = GetComponent<Rigidbody2D>();
+
+        jumpButton.onClick.AddListener(Jump);
+        attackButton.onClick.AddListener(Attack);
     }
 
     void Update()
     {
-
+        
     }
 
     void FixedUpdate()
@@ -70,11 +78,43 @@ public class knightController_joyStick : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (isGround)
         {
             animator.SetTrigger("Jump");
             knightRb.AddForceY(jumpPower, ForceMode2D.Impulse);
         }
     }
 
+    void Attack()
+    {
+        if(!isAttack) // !isAttack 의 의미는 isAttack == false (isAttack이 false일 때만 공격이 발동)
+        {
+            isAttack = true;
+            animator.SetTrigger("Attack"); //기본 공격
+        }
+        else
+        {
+            isCombo = true; //콤보 들어감
+            Debug.Log("콤보 확인");
+        }
+    }
+
+    public void CheckCombo()
+    {
+        if(isCombo)
+        {
+            Debug.Log("콤보 실행");
+            animator.SetBool("isCombo", true);
+        }
+        else
+        {
+            animator.SetBool("isCombo", false);
+            isAttack = false; 
+        }
+    }
+    void EndCombo()
+    {
+        isAttack = false;
+        isCombo = false; 
+    }
 }

@@ -19,6 +19,8 @@ public class knightControllerKeyboard : MonoBehaviour
     private void Update()//일반적인 작업
     {
         InputKeyboard();
+        Jump();
+        SetAnim();
 
     }
 

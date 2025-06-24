@@ -1,32 +1,36 @@
+using System;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class knightController_joyStick : MonoBehaviour
 {
-    Animator animator;
-    Rigidbody2D knightRb;
-    bool isGround;
+    private Animator animator;
+    private Rigidbody2D knightRb;
 
-    Vector3 inputDir;
-    [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float jumpPower = 13f;
+    private Vector3 inputDir;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float jumpPower = 13f;
 
-    private void Start()
+    private bool isGround;
+
+    void Start()
     {
         animator = GetComponent<Animator>();
         knightRb = GetComponent<Rigidbody2D>();
-
     }
-    private void Update()//일반적인 작업
+
+    void Update()
     {
-   
+
     }
 
-    private void FixedUpdate() //물리적인 작업 
+    void FixedUpdate()
     {
         Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
@@ -35,7 +39,7 @@ public class knightController_joyStick : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
@@ -44,13 +48,26 @@ public class knightController_joyStick : MonoBehaviour
         }
     }
 
-    private void Move()
+    public void InputJoystick(float x, float y)
     {
-        if (inputDir.x != 0) //키를 눌렀을 때에만 움직이도록
+        inputDir = new Vector3(x, y, 0).normalized; //날 것의 값에 노멀라이즈해서 크기 조절
+
+        animator.SetFloat("JoystickX",inputDir.x);
+        animator.SetFloat("JoystickY",inputDir.y);
+
+        if(inputDir.x != 0)
         {
-            knightRb.linearVelocityX = inputDir.x * moveSpeed;
+            var scaleX = inputDir.x > 0 ? 1 : -1;
+            transform.localScale = new Vector3(scaleX, 1, 1);
         }
     }
+
+    void Move()
+    {
+        if (inputDir.x != 0)
+            knightRb.linearVelocityX = inputDir.x * moveSpeed;
+    }
+
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGround)
@@ -59,22 +76,5 @@ public class knightController_joyStick : MonoBehaviour
             knightRb.AddForceY(jumpPower, ForceMode2D.Impulse);
         }
     }
-    void SetAnim()
-    {
 
-        if (inputDir.x != 0) //키를 눌렀을 때에만 움직이도록
-        {
-            animator.SetBool("isRun", true);
-        }
-        else if (inputDir.x == 0)
-            animator.SetBool("isRun", false);
-
-        if (inputDir.x != 0)
-        {
-            var scaleX = inputDir.x > 0 ? 1 : -1;
-            transform.localScale = new Vector3(scaleX, 1, 1);
-        }
-
-    }
 }
-

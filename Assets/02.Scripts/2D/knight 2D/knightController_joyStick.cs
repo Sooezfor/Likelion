@@ -15,6 +15,8 @@ public class knightController_joyStick : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float jumpPower = 13f;
 
+    float attackDamage = 3f;
+
     private bool isGround; //기본값 false 임.
     bool isCombo;
     bool isAttack; 
@@ -26,11 +28,6 @@ public class knightController_joyStick : MonoBehaviour
 
         jumpButton.onClick.AddListener(Jump);
         attackButton.onClick.AddListener(Attack);
-    }
-
-    void Update()
-    {
-        
     }
 
     void FixedUpdate()
@@ -56,6 +53,13 @@ public class knightController_joyStick : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            Debug.Log($"{attackDamage} 공격 판정");
+        }
+    }
     public void InputJoystick(float x, float y)
     {
         inputDir = new Vector3(x, y, 0).normalized; //날 것의 값에 노멀라이즈해서 크기 조절
@@ -90,6 +94,7 @@ public class knightController_joyStick : MonoBehaviour
         if(!isAttack) // !isAttack 의 의미는 isAttack == false (isAttack이 false일 때만 공격이 발동)
         {
             isAttack = true;
+            attackDamage = 3f;
             animator.SetTrigger("Attack"); //기본 공격
         }
         else
@@ -99,10 +104,11 @@ public class knightController_joyStick : MonoBehaviour
         }
     }
 
-    public void CheckCombo()
+    public void CheckCombo() //강사님은 wait 콤보로 바꿈 함수 이름
     {
         if(isCombo)
         {
+            attackDamage = 5f; 
             Debug.Log("콤보 실행");
             animator.SetBool("isCombo", true);
         }
@@ -115,6 +121,7 @@ public class knightController_joyStick : MonoBehaviour
     void EndCombo()
     {
         isAttack = false;
-        isCombo = false; 
+        isCombo = false;
+        animator.SetBool("isCombo", false);
     }
 }

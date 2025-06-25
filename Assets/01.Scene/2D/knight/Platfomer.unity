@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &9117503
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -290,7 +290,7 @@ Transform:
   m_GameObject: {fileID: 9117502}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.433, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -948,7 +948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &666406125
 Animator:
   serializedVersion: 7
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  jumpPower: 7
+  jumpPower: 13
 --- !u!1 &686418214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,7 +1527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1019647832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2024,12 +2024,12 @@ GameObject:
   - component: {fileID: 1632498950}
   - component: {fileID: 1632498949}
   m_Layer: 0
-  m_Name: hitbox
+  m_Name: attack box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1632498948
 Transform:
   m_ObjectHideFlags: 0

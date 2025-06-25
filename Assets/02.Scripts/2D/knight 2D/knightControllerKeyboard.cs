@@ -10,6 +10,10 @@ public class knightControllerKeyboard : MonoBehaviour
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float jumpPower = 13f;
 
+    float attackDamage = 3f;
+    bool isCombo;
+    bool isAttack;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,8 +24,7 @@ public class knightControllerKeyboard : MonoBehaviour
     {
         InputKeyboard();
         Jump();
-        SetAnim();
-
+        Attack(); 
     }
 
     private void FixedUpdate() //물리적인 작업 
@@ -46,22 +49,32 @@ public class knightControllerKeyboard : MonoBehaviour
             isGround = false;
         }
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            Debug.Log($"{attackDamage} 공격 판정");
+        }
+    }
 
     void InputKeyboard()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-
         inputDir = new Vector3(h, v, 0);
-        Jump();
-        SetAnim();
+
+        animator.SetFloat("JoystickX", inputDir.x);
+        animator.SetFloat("JoystickY", inputDir.y);
     }
 
     private void Move()
     {
         if (inputDir.x != 0) //키를 눌렀을 때에만 움직이도록
         {
-            knightRb.linearVelocityX = inputDir.x * moveSpeed;
+             var scaleX = inputDir.x > 0 ? 1 : -1;
+             transform.localScale = new Vector3(scaleX, 1, 1);
+
+             knightRb.linearVelocityX = inputDir.x * moveSpeed;
         }
     }
     void Jump()
@@ -72,21 +85,42 @@ public class knightControllerKeyboard : MonoBehaviour
             knightRb.AddForceY(jumpPower, ForceMode2D.Impulse);
         }
     }
-    void SetAnim()
+
+    void Attack()
     {
-
-        if (inputDir.x != 0) //키를 눌렀을 때에만 움직이도록
+        if(Input.GetKeyDown(KeyCode.Z))
         {
-            animator.SetBool("isRun", true);
-        }
-        else if (inputDir.x == 0)
-            animator.SetBool("isRun", false);
+            if (!isAttack) // !isAttack 의 의미는 isAttack == false (isAttack이 false일 때만 공격이 발동)
+            {
+                isAttack = true;
+                attackDamage = 3f;
+                animator.SetTrigger("Attack"); //기본 공격
+            }
+            else
+            {
+                isCombo = true; //콤보 들어감
 
-        if (inputDir.x != 0)
+            }
+        }
+    }
+
+    public void CheckCombo() //강사님은 wait 콤보로 바꿈 함수 이름
+    {
+        if (isCombo)
         {
-            var scaleX = inputDir.x > 0 ? 1 : -1;
-            transform.localScale = new Vector3(scaleX, 1, 1);
+            attackDamage = 5f;
+            animator.SetBool("isCombo", true);
         }
-
+        else
+        {
+            animator.SetBool("isCombo", false);
+            isAttack = false;
+        }
+    }
+    void EndCombo()
+    {
+        isAttack = false;
+        isCombo = false;
+        animator.SetBool("isCombo", false);
     }
 }

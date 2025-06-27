@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class InteractionEvent : MonoBehaviour
 {
+    public SoundController soundCtrl;
+
     public enum InteractionType { Sign, Door, Npc }
     public InteractionType type;
 
@@ -51,6 +53,8 @@ public class InteractionEvent : MonoBehaviour
 
     IEnumerator DoorRoutine(Transform player)
     {
+        soundCtrl.EventSoundPlay("Door sound");
+
         yield return StartCoroutine(fade.FadeRoutine(3f, Color.black, true)); //yield return 을 스타트코루틴 앞에 넣으면 해당 코루틴이 끝날 때까지 기다림. 
 
         if(!isOutside) //isOutside 가 펄스라면 실행
@@ -58,6 +62,7 @@ public class InteractionEvent : MonoBehaviour
             player.transform.position = indoorPos; //인도어 포즈로 플레이어 위치 바꿔버림
             map.SetActive(false);
             house.SetActive(true);
+            soundCtrl.BgmSoundPlay("soo peace bgm");
 
         }
         else //isOutside 가 트루라면
@@ -65,6 +70,7 @@ public class InteractionEvent : MonoBehaviour
             player.transform.position = outdoorPos; //아웃도어 포즈로 플레이어 위치 바꿔버림
             map.SetActive(true);
             house.SetActive(false);
+            soundCtrl.BgmSoundPlay("peace bgm");
         }
 
         isOutside = !isOutside;

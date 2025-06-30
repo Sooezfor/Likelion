@@ -39,7 +39,6 @@ public class portalController : MonoBehaviour
             yield return null;
         }
         SceneManager.LoadScene(1); //씬 로드
-        //효과음 넣기 
     }    
 
 }

@@ -319,7 +319,7 @@ MonoBehaviour:
   pipe: {fileID: 1828284184}
   melon: {fileID: 1287449853}
   particle: {fileID: 210188159}
-  moveSpeed: 0.35
+  moveSpeed: 0.5
   returnPosX: 15
   randomPosY: 0
   colliderType: 0
@@ -947,7 +947,7 @@ MonoBehaviour:
   pipe: {fileID: 397025918}
   melon: {fileID: 1020985202}
   particle: {fileID: 818696920}
-  moveSpeed: 0.35
+  moveSpeed: 0.5
   returnPosX: 15
   randomPosY: 0
   colliderType: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fcb775468f3fa4ea782bd070d4b6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetSpeed: 0.35
+  offsetSpeed: 0.6
 --- !u!1 &347101625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,7 +2585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &924233885
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3659,8 +3659,8 @@ MonoBehaviour:
   vPlayer: {fileID: 0}
   videoPanel: {fileID: 400825716}
   vClips:
-  - {fileID: 32900000, guid: 293619097a988644abe872e54a5c5f34, type: 3}
-  - {fileID: 32900000, guid: d4bc99bf5baf43148a55a974dc9de9a3, type: 3}
+  - {fileID: 32900000, guid: a8257edf50e03644a92e9119886d420f, type: 3}
+  - {fileID: 32900000, guid: 84974a845c7b7794eaa4898e5a4f9d7f, type: 3}
 --- !u!1 &1287449853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,7 +4534,7 @@ MonoBehaviour:
   pipe: {fileID: 1575714539}
   melon: {fileID: 1391911705}
   particle: {fileID: 416630803}
-  moveSpeed: 0.35
+  moveSpeed: 0.5
   returnPosX: 15
   randomPosY: 0
   colliderType: 0

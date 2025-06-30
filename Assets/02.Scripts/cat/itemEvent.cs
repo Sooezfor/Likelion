@@ -8,7 +8,6 @@ public class itemEvent : MonoBehaviour
     public float moveSpeed = 3;
     public float returnPosX = 15f;
     public float randomPosY;
-
     public enum ColliderType { Pipe, Melon, Both }
     public ColliderType colliderType;
     Vector3 initPos; //파이프 위치 담는 변수
@@ -25,7 +24,7 @@ public class itemEvent : MonoBehaviour
      {
           transform.position += Vector3.left * moveSpeed * Time.fixedDeltaTime;
 
-          if (transform.position.x <= -returnPosX) //이미지의 x축 값이 -30을 넘는 순간 리턴
+          if (transform.position.x <= -returnPosX) //이미지의 x축 값이 -15 넘는 순간 리턴
           {
             SetRandomSetting(returnPosX);       
           }

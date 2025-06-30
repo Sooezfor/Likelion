@@ -13,6 +13,7 @@ TagManager:
   - Melon
   - Pipe
   - Monster
+  - Ladder
   layers:
   - Default
   - TransparentFX

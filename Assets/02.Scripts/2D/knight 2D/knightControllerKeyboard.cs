@@ -4,15 +4,16 @@ public class knightControllerKeyboard : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D knightRb;
-    bool isGround;
 
     Vector3 inputDir;
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float jumpPower = 13f;
 
     float attackDamage = 3f;
+    bool isGround;
     bool isCombo;
     bool isAttack;
+    bool isLadder;
 
     private void Start()
     {
@@ -55,6 +56,21 @@ public class knightControllerKeyboard : MonoBehaviour
         {
             Debug.Log($"{attackDamage} 공격 판정");
         }
+        if(other.CompareTag("Ladder"))
+        {
+            isLadder = true;
+            knightRb.gravityScale = 0f;
+            knightRb.linearVelocity = Vector2.zero; //속도 제로 설정
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            knightRb.gravityScale = 2f;
+        }
     }
 
     void InputKeyboard()
@@ -65,16 +81,38 @@ public class knightControllerKeyboard : MonoBehaviour
 
         animator.SetFloat("JoystickX", inputDir.x);
         animator.SetFloat("JoystickY", inputDir.y);
+
+        if(inputDir.y < 0) //웅크릴 때 콜라이더 줄여서 들어갈 수 있도록
+        {
+            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 1.0f);
+        }
+        else
+        {
+            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 1.5f);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 10;
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            moveSpeed = 3f;
+        }
     }
 
     private void Move()
     {
-        if (inputDir.x != 0) //키를 눌렀을 때에만 움직이도록
+        if (inputDir.x != 0) //A나 D 키를 눌렀을 때에만 움직이도록
         {
              var scaleX = inputDir.x > 0 ? 1 : -1;
              transform.localScale = new Vector3(scaleX, 1, 1);
 
              knightRb.linearVelocityX = inputDir.x * moveSpeed;
+        }
+        if(isLadder && inputDir.y != 0) //사다리 올라가기, y축이 0이 아닐 때만
+        {
+            knightRb.linearVelocityY = inputDir.y * moveSpeed;
         }
     }
     void Jump()

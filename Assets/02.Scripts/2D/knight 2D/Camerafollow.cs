@@ -24,8 +24,8 @@ public class Camerafollow : MonoBehaviour
 
         //값 할당 전에 클램프 작업해야 함. 
 
-        smoothPos.x = Mathf.Clamp(smoothPos.x, -5.2f, 14.19f);
-        smoothPos.y = Mathf.Clamp(smoothPos.y, -3.99f, 12.99f);
+        smoothPos.x = Mathf.Clamp(smoothPos.x, -7.24f, 32.11f);
+        smoothPos.y = Mathf.Clamp(smoothPos.y, 0.23f, 14.03f);
         // (값 , 최소값, 최대값. 값을 최소와 최대값 사이로 고정하고 벗어나면 최소값을 넣거나 최대값 넣을 것임)
 
         transform.position = smoothPos;

@@ -16,6 +16,8 @@ public class SoundController : MonoBehaviour
 
     private void Awake() //초기화 작업 
     {
+        DontDestroyOnLoad(gameObject); //다른 씬 로드했을 때 이 게임 오브젝트 안 없애는 것
+
         bgmVolume.value = bgmaudio.volume; //현재 오디오 볼륨을 슬라이더값으로
         eventVolume.value = eventAudio.volume;
 

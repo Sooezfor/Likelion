@@ -12,25 +12,25 @@ public class knightControllerKeyboard : MonoBehaviour
     float attackDamage = 3f;
     bool isGround;
     bool isCombo;
-    bool isAttack;
+    public bool isAttack;
     bool isLadder;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         knightRb = GetComponent<Rigidbody2D>();
-        
+
     }
     private void Update()//일반적인 작업
     {
         InputKeyboard();
         Jump();
-        Attack(); 
+        Attack();
     }
 
     private void FixedUpdate() //물리적인 작업 
     {
-        Move(); 
+        Move();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -49,10 +49,16 @@ public class knightControllerKeyboard : MonoBehaviour
             animator.SetBool("isGround", false);
             isGround = false;
         }
+        if (isAttack || isCombo)
+        {
+            isAttack = false;
+            isCombo = false;
+            animator.SetBool("isCombo", false);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Monster"))
+        if (other.CompareTag("Monster"))
         {
             Debug.Log($"{attackDamage} 공격 판정");
         }
@@ -63,7 +69,6 @@ public class knightControllerKeyboard : MonoBehaviour
             knightRb.linearVelocity = Vector2.zero; //속도 제로 설정
         }
     }
-
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
@@ -72,7 +77,6 @@ public class knightControllerKeyboard : MonoBehaviour
             knightRb.gravityScale = 2f;
         }
     }
-
     void InputKeyboard()
     {
         float h = Input.GetAxis("Horizontal");
@@ -141,12 +145,13 @@ public class knightControllerKeyboard : MonoBehaviour
         }
     }
 
-    public void CheckCombo() //강사님은 wait 콤보로 바꿈 함수 이름
+    public void CheckCombo() // wait 콤보와 같음.
     {
         if (isCombo)
         {
             attackDamage = 5f;
             animator.SetBool("isCombo", true);
+            isAttack = false;
         }
         else
         {
@@ -154,7 +159,7 @@ public class knightControllerKeyboard : MonoBehaviour
             isAttack = false;
         }
     }
-    void EndCombo()
+    public void EndCombo()
     {
         isAttack = false;
         isCombo = false;

@@ -5,7 +5,7 @@ public class Goblin : MonsterCore
 {
     private float timer;
     float idleTime, patrolTime;
-    bool isAttack;
+    public bool isAttack;
 
     //float percent;
 
@@ -94,7 +94,7 @@ public class Goblin : MonsterCore
             anim.SetBool("isRun", false);
             ChangeState(MonsterState.IDLE);
         }
-        if(targetDist <= attackDist)
+        if(targetDist < attackDist)
         {
             ChangeState(MonsterState.ATTACK);
         }
@@ -120,5 +120,4 @@ public class Goblin : MonsterCore
         isAttack = false;
         ChangeState(MonsterState.IDLE);
     }
-
 }

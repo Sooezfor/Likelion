@@ -91,14 +91,14 @@ public class knightControllerKeyboard : MonoBehaviour
             GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 1.5f);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            moveSpeed = 10;
-        }
-        if(Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            moveSpeed = 3f;
-        }
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    moveSpeed = 10;
+        //}
+        //if(Input.GetKeyUp(KeyCode.LeftShift))
+        //{
+        //    moveSpeed = 3f;
+        //}
     }
 
     private void Move()
@@ -137,7 +137,6 @@ public class knightControllerKeyboard : MonoBehaviour
             else
             {
                 isCombo = true; //ÄÞº¸ µé¾î°¨
-
             }
         }
     }

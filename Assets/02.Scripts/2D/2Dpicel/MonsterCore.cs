@@ -14,14 +14,15 @@ public abstract class MonsterCore : MonoBehaviour
     protected Collider2D moncoll;
     protected float moveDir;
     protected float targetDist;  //목표와의 거리값
-    public float attackTIme; 
+    public float attackTIme;
+    public float atkDamage;
 
     public Transform target;
     protected bool isTrace; 
  
    
 
-    protected virtual void Init(float hp, float speed, float attackTime)
+    protected virtual void Init(float hp, float speed, float attackTime, float atkDamage)
     {
         anim = GetComponent<Animator>();
         monRb = GetComponent<Rigidbody2D>();
@@ -31,18 +32,12 @@ public abstract class MonsterCore : MonoBehaviour
 
         this.hp = hp;
         this.speed = speed;
+        this.atkDamage = atkDamage;
     }
 
     private void Update()
     {
-        targetDist = Vector3.Distance(transform.position, target.position);
-
-        Vector3 monsterDIr = Vector3.right * moveDir;
-        Vector3 playerDir = (transform.position - target.position).normalized;
-
-        float dotValue = Vector3.Dot(monsterDIr, playerDir);
-        isTrace = dotValue < -0.5f && dotValue >= -1f;
-
+       
         switch(monstate)
         {
             case MonsterState.IDLE:
@@ -78,5 +73,10 @@ public abstract class MonsterCore : MonoBehaviour
             moveDir *= -1; //moveDir은 이동 방향만 바꾼 거고 localScale 값을 바꿔야 스프라이트 좌우반전.
             transform.localScale = new Vector3(moveDir, 1, 1);
         }
+        if(other.GetComponent<IDamageable>() != null)
+        {
+            other.GetComponent<IDamageable>().TakeDamage(atkDamage);
+        }
+
     }
 }

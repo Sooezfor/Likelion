@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class knightControllerKeyboard : MonoBehaviour
+public class knightControllerKeyboard : MonoBehaviour, IDamageable
 {
     Animator animator;
     Rigidbody2D knightRb;
@@ -9,10 +9,12 @@ public class knightControllerKeyboard : MonoBehaviour
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float jumpPower = 13f;
 
+    public float hp = 100f;
     float attackDamage = 3f;
+
     bool isGround;
     bool isCombo;
-    public bool isAttack;
+    bool isAttack;
     bool isLadder;
 
     private void Start()
@@ -88,21 +90,23 @@ public class knightControllerKeyboard : MonoBehaviour
 
         if(inputDir.y < 0) //웅크릴 때 콜라이더 줄여서 들어갈 수 있도록
         {
-            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 1.0f);
+            GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 0.6f);
+            GetComponent<CapsuleCollider2D>().offset = new Vector2(0, 0.6f);
         }
         else
         {
             GetComponent<CapsuleCollider2D>().size = new Vector2(0.7f, 1.5f);
+            GetComponent<CapsuleCollider2D>().offset = new Vector2(0, 0.8f);
         }
 
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    moveSpeed = 10;
-        //}
-        //if(Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    moveSpeed = 3f;
-        //}
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 10;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            moveSpeed = 3f;
+        }
     }
 
     private void Move()
@@ -164,5 +168,19 @@ public class knightControllerKeyboard : MonoBehaviour
         isAttack = false;
         isCombo = false;
         animator.SetBool("isCombo", false);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        if (hp <= 0f)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        Debug.Log("YOU DIED");
     }
 }

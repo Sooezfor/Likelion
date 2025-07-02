@@ -1,26 +1,34 @@
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
 
-public abstract class MonsterCore : MonoBehaviour
+public abstract class MonsterCore : MonoBehaviour, IDamageable
 {
     public enum MonsterState { IDLE, PATROL, TRACE, ATTACK }
     public MonsterState monstate = MonsterState.IDLE;
 
+    public ItemManager itManager;
+    public Image hpBar; 
+
     public float hp;
+    public float currHp;
     public float speed;
 
     protected Animator anim;
     protected Rigidbody2D monRb;
     protected Collider2D moncoll;
+
     protected float moveDir;
     protected float targetDist;  //목표와의 거리값
     public float attackTIme;
     public float atkDamage;
+    bool isDead; 
 
     public Transform target;
-    protected bool isTrace; 
- 
-   
+    protected bool isTrace;
+
+    Collider2D monsterColl;
+    Rigidbody2D monsterRb;
 
     protected virtual void Init(float hp, float speed, float attackTime, float atkDamage)
     {
@@ -29,6 +37,7 @@ public abstract class MonsterCore : MonoBehaviour
         moncoll = GetComponent<Collider2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        itManager = FindFirstObjectByType<ItemManager>();
 
         this.hp = hp;
         this.speed = speed;
@@ -37,7 +46,9 @@ public abstract class MonsterCore : MonoBehaviour
 
     private void Update()
     {
-       
+        if (isDead)
+            return; 
+
         switch(monstate)
         {
             case MonsterState.IDLE:
@@ -77,6 +88,24 @@ public abstract class MonsterCore : MonoBehaviour
         {
             other.GetComponent<IDamageable>().TakeDamage(atkDamage);
         }
+
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currHp -= damage;
+        hpBar.fillAmount = currHp / hp;
+        if (currHp <= 0f)
+            Death();
+    }
+
+    public void Death()
+    {
+        isDead = true;
+        anim.SetTrigger("Death");
+        moncoll.enabled = false;
+        monRb.gravityScale = 0f;
+        itManager.DropItem(transform.position); //현재 위치에 아이템 떨어트림
 
     }
 }

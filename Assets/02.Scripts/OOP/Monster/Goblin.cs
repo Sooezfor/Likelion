@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Goblin : MonsterCore
 {
@@ -69,6 +70,8 @@ public class Goblin : MonsterCore
             timer = 0f;
             moveDir = Random.Range(0, 2) == 1 ? 1 : -1;
             transform.localScale = new Vector3(moveDir, 1, 1);
+            hpBar.transform.localScale = new Vector3(moveDir, 1, 1); //체력 바는 반대로 되어야 해서 -moveDir 됨
+        
             patrolTime = Random.Range(1f, 5f); //패트롤 상태 유지할 시간 미리 설정. 1초부터 5초 이내
             anim.SetBool("isRun", true); //바뀌기 직전에 불 값 바꿔줌
             
@@ -97,7 +100,8 @@ public class Goblin : MonsterCore
         transform.position += Vector3.right * targetDir.x * speed * Time.deltaTime; // 2D라서 x축 값에만 적용 
 
         var scaleX = targetDir.x > 0 ? 1 : -1;
-        transform.localScale = new Vector3(scaleX, 1, 1);      
+        transform.localScale = new Vector3(scaleX, 1, 1);
+        hpBar.transform.localScale = new Vector3(scaleX, 1, 1); //체력 바는 반대로 되어야 해서 -scaleX 됨
     }
 
     public override void Attack()
@@ -119,6 +123,8 @@ public class Goblin : MonsterCore
         var targetDir = (target.position - transform.position).normalized; //타겟 바라보도록 좌우반전하는 기능 추가
         var scaleX = targetDir.x > 0 ? 1 : -1;
         transform.localScale = new Vector3(scaleX, 1, 1);
+        hpBar.transform.localScale = new Vector3(scaleX, 1, 1); //체력 바는 반대로 되어야 해서
+    
         yield return new WaitForSeconds(attackTIme - 1f);//공격 쿨다운
 
         isAttack = false; //다시 공격 가능하도록 false 로 초기화

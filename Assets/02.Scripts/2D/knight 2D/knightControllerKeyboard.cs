@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class knightControllerKeyboard : MonoBehaviour, IDamageable
 {
     Animator animator;
     Rigidbody2D knightRb;
+    Collider2D knightColl;
+    GameObject knight;
 
     Vector3 inputDir;
     [SerializeField] float moveSpeed = 3f;
     [SerializeField] float jumpPower = 13f;
+    [SerializeField] Image hpBar;
 
     public float hp = 100f;
-    float attackDamage = 3f;
+    public float nowhp; //현재 체력 확인용 변수
+
+    float atkDamage = 3f;
 
     bool isGround;
     bool isCombo;
@@ -19,8 +25,13 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        knight = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         knightRb = GetComponent<Rigidbody2D>();
+        knightColl = GetComponent<Collider2D>();
+
+        nowhp = hp; //현재 체력 = 맥스 체력 
+        hpBar.fillAmount = nowhp / hp;
 
     }
     private void Update()//일반적인 작업
@@ -62,7 +73,11 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
     {
         if (other.CompareTag("Monster"))
         {
-            Debug.Log($"{attackDamage} 공격 판정");
+            if(other.GetComponent<IDamageable>() != null) //몬스터 때리기
+            {
+                other.GetComponent<IDamageable>().TakeDamage(atkDamage);
+                other.GetComponent<Animator>().SetTrigger("Hit"); //맞는 대상의 애니메이터에 접근해 공격 애니메이션 나오게함
+            }
         }
         if(other.CompareTag("Ladder"))
         {
@@ -102,6 +117,7 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = 10;
+            animator.SetTrigger("Dash");
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -139,7 +155,7 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
             if (!isAttack) // !isAttack 의 의미는 isAttack == false (isAttack이 false일 때만 공격이 발동)
             {
                 isAttack = true;
-                attackDamage = 3f;
+                atkDamage = 3f;
                 animator.SetTrigger("Attack"); //기본 공격
             }
             else
@@ -153,7 +169,7 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
     {
         if (isCombo)
         {
-            attackDamage = 5f;
+            atkDamage = 5f;
             animator.SetBool("isCombo", true);
             isAttack = false;
         }
@@ -172,15 +188,19 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        hp -= damage;
-        if (hp <= 0f)
-        {
+        nowhp -= damage;
+
+        hpBar.fillAmount = nowhp / hp; //현재 체력 /최대 체력
+
+        if (nowhp <= 0f)
             Death();
-        }
     }
 
     public void Death()
     {
-        Debug.Log("YOU DIED");
+        animator.SetTrigger("Death");
+        knightColl.enabled = false; //체크박스는 enabled
+        knightRb.gravityScale = 0;
+        //knight.SetActive(false);
     }
 }

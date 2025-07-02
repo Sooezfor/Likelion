@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,9 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
     Animator animator;
     Rigidbody2D knightRb;
     Collider2D knightColl;
-    GameObject knight;
+    public GameObject knight;
+
+    public Image[] hearts;
 
     Vector3 inputDir;
     [SerializeField] float moveSpeed = 3f;
@@ -22,6 +25,7 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
     bool isCombo;
     bool isAttack;
     bool isLadder;
+    bool isDamage;
 
     private void Start()
     {
@@ -31,7 +35,7 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
         knightColl = GetComponent<Collider2D>();
 
         nowhp = hp; //현재 체력 = 맥스 체력 
-        hpBar.fillAmount = nowhp / hp;
+        //hpBar.fillAmount = nowhp / hp;
 
     }
     private void Update()//일반적인 작업
@@ -188,19 +192,43 @@ public class knightControllerKeyboard : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        nowhp -= damage;
+        //nowhp -= damage;
+        //hpBar.fillAmount = nowhp / hp; //현재 체력 /최대 체력
+        //if (nowhp <= 0f)
+        //    Death();
 
-        hpBar.fillAmount = nowhp / hp; //현재 체력 /최대 체력
-
-        if (nowhp <= 0f)
-            Death();
+        if(damage ==10)
+        {
+            for (int i = 0; i < hearts.Length; i++) //0부터 배열 끝까지 차례대로 돌아감
+             {
+                
+                if (hearts[i].enabled)
+                {
+                        nowhp -= damage; // nowhp = 100-10
+                        this.hearts[i].enabled = false;
+                        Debug.Log($"현재 체력은 {nowhp} 입니다");
+                        hp = nowhp; // hp = 90
+                        break;
+                }
+                               
+            }
+            if(nowhp <= 0)    
+                Death();             
+        }                    
     }
-
+  
     public void Death()
     {
         animator.SetTrigger("Death");
         knightColl.enabled = false; //체크박스는 enabled
         knightRb.gravityScale = 0;
-        //knight.SetActive(false);
+
+        StartCoroutine(Delay());
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(10f);
+        knight.SetActive(false);
     }
 }

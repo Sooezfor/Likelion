@@ -101,7 +101,7 @@ public class Goblin : MonsterCore
 
         var scaleX = targetDir.x > 0 ? 1 : -1;
         transform.localScale = new Vector3(scaleX, 1, 1);
-        hpBar.transform.localScale = new Vector3(scaleX, 1, 1); //체력 바는 반대로 되어야 해서 -scaleX 됨
+        hpBar.transform.localScale = new Vector3(scaleX, 1, 1); //체력 바는 반대로 되어야 해서 로컬스케일
     }
 
     public override void Attack()

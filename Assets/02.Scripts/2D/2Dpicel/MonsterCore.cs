@@ -88,7 +88,6 @@ public abstract class MonsterCore : MonoBehaviour, IDamageable
         {
             other.GetComponent<IDamageable>().TakeDamage(atkDamage);
         }
-
     }
 
     public void TakeDamage(float damage)
@@ -105,7 +104,13 @@ public abstract class MonsterCore : MonoBehaviour, IDamageable
         anim.SetTrigger("Death");
         moncoll.enabled = false;
         monRb.gravityScale = 0f;
-        itManager.DropItem(transform.position); //현재 위치에 아이템 떨어트림
 
+        int itemCount = Random.Range(0, 3);
+
+        if(itemCount >= 0)
+        {
+            for (int i = 0; i < itemCount; i++)
+                itManager.DropItem(transform.position);
+        }
     }
 }

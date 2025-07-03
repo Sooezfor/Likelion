@@ -12,21 +12,21 @@ public class HpPotion : MonoBehaviour, IItemObject
         Inventory = FindFirstObjectByType<ItemManager>(); 
 
         Obj = this.gameObject; //hppotion 말하는것. 그 위에 상속도 포함
-        ItemName = name;
-        Icon = GetComponent<SpriteRenderer>().sprite; 
+        ItemName = this.name;
+        Icon = this.GetComponent<SpriteRenderer>().sprite; 
     }
     public void Get()
     {
-        gameObject.SetActive(true); //인벤토리 시스템 작동
+        gameObject.SetActive(true); //먹은 것처럼 보이기 
 
-        Inventory.GetItem(this);
+        Inventory.GetItem(this); //인벤토리한테 먹은 정보 넘기기
     }
 
     public void Use()
     {
-        Debug.Log("포션 사용");
+        Debug.Log("아이템 사용");
     }
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other) //충돌 이벤트
     {
         if(other.gameObject.CompareTag("Player"))
         {

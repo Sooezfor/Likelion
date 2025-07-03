@@ -3,6 +3,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] items;
+    public Slot[] slots; 
 
     public void DropItem(Vector3 dropPos)
     {
@@ -19,8 +20,18 @@ public class ItemManager : MonoBehaviour
         itemRb.AddTorque(ranPower, ForceMode2D.Impulse);
     }
 
-    public void GetItem(IItemObject item)
+    public void GetItem(IItemObject item) //인벤토리 기능 
     {
-        // 인벤토리에 넣는 기능
+        // 모든 슬롯 중에서 빈 슬롯을 찾아서 AddItem 
+        foreach(var slot in slots) //모든 슬롯에서 
+        {
+            if(slot.isEmpty) //슬롯이 비어있을 경우
+            {
+                slot.AddItem(item);
+                break;
+            }
+                             
+
+        }
     }
 }

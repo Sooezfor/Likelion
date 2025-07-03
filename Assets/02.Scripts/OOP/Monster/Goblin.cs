@@ -9,20 +9,17 @@ public class Goblin : MonsterCore
     public bool isAttack;
 
     float traceDist = 8f; //추격거리
-    float attackDist = 1.5f; 
-    
+    float attackDist = 1.5f;     
     void Start()
     {
         Init(30f, 3f, 2f, 10f);
         StartCoroutine(FindPlayerRoutine());
     }
-
     protected override void Init(float hp, float speed, float attackTime, float atkDamage)
     {
         base.Init(hp, speed, attackTime, atkDamage);
         idleTime = Random.Range(1f, 5f);
     }
-
     IEnumerator FindPlayerRoutine()
     {
         while(true)
@@ -59,7 +56,6 @@ public class Goblin : MonsterCore
                 }
             }
         }
-
     }
 
     public override void Idle()

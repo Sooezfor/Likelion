@@ -1,10 +1,26 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
+    [SerializeField] Transform slotGroup;
     [SerializeField] private GameObject[] items;
-    public Slot[] slots; 
+    public Slot[] slots;
 
+    public GameObject inventoryUI;
+    public Button inventoryButton;
+
+    private void Start()
+    {
+        slots = slotGroup.GetComponentsInChildren<Slot>(true);
+        //자신과 자식 중에서 슬롯 컴포넌트가 있는 대상을 모두 가져오는 기능 
+        inventoryButton.onClick.AddListener(OnInventory);
+    }
+    void OnInventory()
+    {
+        inventoryUI.SetActive(!inventoryUI.activeSelf);
+        //현재 액티브 상태를 반전시켜줌
+    }
     public void DropItem(Vector3 dropPos)
     {
         var randomIndex = Random.Range(0, items.Length);
@@ -30,8 +46,6 @@ public class ItemManager : MonoBehaviour
                 slot.AddItem(item);
                 break;
             }
-                             
-
         }
     }
 }

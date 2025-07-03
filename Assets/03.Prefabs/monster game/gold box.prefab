@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 597710452563666802}
   - component: {fileID: 5347211864817409080}
   - component: {fileID: 3901513857045151509}
+  - component: {fileID: -3705393756188317987}
   m_Layer: 10
   m_Name: gold box
   m_TagString: Untagged
@@ -167,3 +168,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinType: 0
   price: 0
+--- !u!114 &-3705393756188317987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651151587207437912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d07a41debb7b44090db046bcfb7640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
